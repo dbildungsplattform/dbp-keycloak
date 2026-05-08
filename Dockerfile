@@ -21,7 +21,7 @@ RUN set -o allexport && \
     env && \
     echo "Building variant ${KEYCLOAK_VARIANT} with keycloak version ${KEYCLOAK_VERSION}" && \
     apt-get update && apt-get install -y --no-install-recommends curl tar && \
-    mkdir /tmp/keycloak && \
+    mkdir "/tmp/keycloak" && \
     curl --location --fail \
     --request GET \
     https://github.com/keycloak/keycloak/releases/download/${KEYCLOAK_VERSION}/keycloak-${KEYCLOAK_VERSION}.tar.gz \
