@@ -34,7 +34,7 @@ jobs:
           kubeconform \
           -schema-location default \
           -schema-location \
-          'https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/{{.Group}}/{{.ResourceKind}}_{{.ResourceAPIVersion}}.json' \
+          'https://raw.githubusercontent.com/datreeio/CRDs-catalog/3348d879deb1cb95a5e93c1c206ffa4a0a494c2c/{{.Group}}/{{.ResourceKind}}_{{.ResourceAPIVersion}}.json' \
           -strict \
           -output json \
           ${{ env.HELM_OUTPUT_DIR }} \
