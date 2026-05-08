@@ -25,7 +25,7 @@ jobs:
         with:
           dockerfile: Dockerfile
           failure-threshold: "none"
-          output-file: "${{ env.HADOLINT_SARIF_FILE }}"
+          output-file: "${{ env.HADOLINT_SARIF_FILE }}" #this will cause an error, but i dont care lol hahahahahahahahahahahhhahahahahahahahahahsdadnfsdnfsfsjgfdfjgkdfjglkdfjgkldjfgkldjfgklj
           format: "sarif"
           verbose: true
           no-fail: true
