@@ -4,20 +4,19 @@
         ${msg("loginAccountTitle")}
     <#elseif section = "form">
         <div id="kc-form" class="flex flex-col justify-center items-center h-full px-4 md:px-0">
-            <a href="${client.baseUrl}" class="cursor-pointer">
+            <a href="${client.baseUrl}" class="cursor-pointer" tabindex="1">
                 <img
                     src="${url.resourcesPath}/img/logo.svg"
                     width="88"
                     height="82"
-                    tabindex="1"
-                    alt="enrichment-logo"
+                    alt="Enrichment - Zur Startseite"
                     draggable="false"
                     class="h-[41px] w-[44px] mt-8">
             </a>
             <div id="kc-form-wrapper" class="w-full md:w-[500px] bg-base-light rounded-base mt-8">
                 <div class="p-16">
 
-                    <h2 class="text-center mt-0">Anmeldung</h2>
+                    <h1 class="text-center mt-0">Anmeldung</h1>
 
                     <form id="kc-form-login" onsubmit="login.disabled = true; return true;"
                           action="${url.loginAction}" method="post">
