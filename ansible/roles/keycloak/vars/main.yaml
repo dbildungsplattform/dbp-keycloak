@@ -1,0 +1,1 @@
+keycloak_use_helm_digest: "'@' in keycloak_chart_ref"
