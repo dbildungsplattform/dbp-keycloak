@@ -20,3 +20,4 @@
     kubeconfig: "{{ kubeconfig | default(omit) }}"
     update_repo_cache: "{{ 'oci' not in keycloak_chart_ref }}"
     values: "{{ lookup('template', 'values.yaml') | from_yaml }}"
+    force: true
