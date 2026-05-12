@@ -13,7 +13,7 @@
   kubernetes.core.helm:
     chart_ref: "{{ keycloak_chart_ref }}"
     # use chart version only if not using digest
-    chart_version: "{{ keycloak_use_helm_digest | ternary(omit, keycloak_chart_version) }}"
+    chart_version: "{{ keycloak_chart_version }}"
     release_name: "{{ keycloak_release_name }}"
     release_namespace: "{{ keycloak_namespace }}"
     release_state: "{{ keycloak_state }}"
