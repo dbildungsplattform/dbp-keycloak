@@ -8,7 +8,7 @@
       - "keycloak_chart_repo_name is string"
       - "keycloak_chart_repo_url is string"
       - "keycloak_chart_ref is string"
-      - "keycloak_chart_version is string or '@' in keycloak_chart_ref"
+      - "'@' in keycloak_chart_ref or keycloak_chart_version is string"
       - "keycloak_release_name is string"
       - "keycloak_realm_filepath is string"
       - "keycloak_image_repository is string"
