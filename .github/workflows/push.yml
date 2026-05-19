@@ -116,7 +116,7 @@ jobs:
           docker run --rm \
           -v ${{ github.workspace }}:/workdir \
           -v ${{ github.workspace }}/clamavscan:/scan \
-          -v sockets:/tmp clamav/clamav:latest
+          -v sockets:/tmp clamav/clamav:latest \
           clamdscan /scan/container_fs -m -w \
           --fdpass \
           -l /workdir/clamav-results-${{ matrix.variant }}.txt \
