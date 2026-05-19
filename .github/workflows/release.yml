@@ -15,11 +15,11 @@ jobs:
       pull-requests: write # to be able to comment on released pull requests
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           fetch-depth: 0
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
         with:
           node-version: "22"
       - name: Install dependencies
@@ -44,7 +44,7 @@ jobs:
       tag: ${{ steps.get_tag.outputs.tag }}
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           fetch-depth: 0
           fetch-tags: true
@@ -69,7 +69,7 @@ jobs:
         variant: ['generic', 'erwin', 'enrichment', 'internal']
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           ref: ${{ needs.get_tag.outputs.tag }}
           fetch-tags: true
@@ -82,7 +82,7 @@ jobs:
           echo "keycloak_version=${KEYCLOAK_VERSION}" >> $GITHUB_OUTPUT
       - name: Build image name and tags
         id: docker_meta_img
-        uses: docker/metadata-action@v5.7.0
+        uses: docker/metadata-action@030e881283bb7a6894de51c315a6bfe6a94e05cf # v6.0.0
         with:
           context: git
           images: |
@@ -93,7 +93,7 @@ jobs:
             type=raw,value=${{ steps.get_keycloak_version.outputs.keycloak_version }}-${{ needs.get_tag.outputs.tag }}
             type=raw,value=latest
       - name: Login to registry
-        uses: docker/login-action@v3
+        uses: docker/login-action@4907a6ddec9925e35a0a9e82d7399ccc52663121 # v4.1.0
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
@@ -105,7 +105,7 @@ jobs:
           echo "repository=${repo_var@L}" >> $GITHUB_OUTPUT
       - name: Build and push image to ghcr
         id: docker_build_push
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@bcafcacb16a39f128d818304e6c9c0c18556b85f # v7.1.0
         with:
           context: .
           platforms: linux/amd64
@@ -116,7 +116,7 @@ jobs:
           build-args: |
             KEYCLOAK_VARIANT=${{ matrix.variant }}
       - name: run trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@57a97c7e7821a5776cebc9bb87c984fa69cba8f1 # v0.35.0
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
         with:
           image-ref: ghcr.io/${{ steps.lower-repo.outputs.repository }}@${{ steps.docker_build_push.outputs.digest }}
           format: "sarif"
@@ -129,7 +129,7 @@ jobs:
           TRIVY_SKIP_JAVA_DB_UPDATE: false
       - name: upload trivy results
         if: ${{ always() }}
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@68bde559dea0fdcac2102bfdf6230c5f70eb485e # v4.35.4
         with:
           sarif_file: "trivy-results.sarif"
       - name: trigger gitlab pipeline to backup the image
@@ -156,19 +156,19 @@ jobs:
       group: helm_release
       cancel-in-progress: false
     needs:
-     - scan_helm
-     - build_and_upload_image
-     - get_tag
+      - scan_helm
+      - build_and_upload_image
+      - get_tag
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - id: lower-helm-repo
         name: Repository to lowercase
         run: |
           repo_var=${{ github.repository }}
           echo "repository=${repo_var@L}" >> $GITHUB_OUTPUT
       - name: Log into ghcr.io
-        uses: docker/login-action@v3
+        uses: docker/login-action@4907a6ddec9925e35a0a9e82d7399ccc52663121 # v4.1.0
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
