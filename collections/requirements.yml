@@ -1,0 +1,5 @@
+---
+# wird nur von ansible-lint genutzt
+collections:
+  - name: kubernetes.core
+    version: 6.4.0
