@@ -8,7 +8,7 @@
       - "keycloak_chart_repo_name is string"
       - "keycloak_chart_repo_url is string"
       - "keycloak_chart_ref is string"
-      - "keycloak_chart_version is string"
+      - "keycloak_c_use_helm_digest or keycloak_chart_version is string"
       - "keycloak_release_name is string"
       - "keycloak_realm_filepath is string"
       - "keycloak_image_repository is string"
@@ -85,7 +85,7 @@
       # For variables with default "", check that they are set (not empty)
       - "keycloak_namespace | length > 0"
       - "keycloak_hostname | length > 0"
-      - "keycloak_chart_version | length > 0"
+      - "keycloak_c_use_helm_digest or keycloak_chart_version | length > 0"
       - "not keycloak_ingress_tls_enabled or keycloak_ingress_tls_secret_name | length > 0"
       - >
         keycloak_auth_existing_secret | length > 0

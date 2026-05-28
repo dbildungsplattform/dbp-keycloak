@@ -12,7 +12,8 @@
   delegate_to: localhost
   kubernetes.core.helm:
     chart_ref: "{{ keycloak_chart_ref }}"
-    chart_version: "{{ keycloak_chart_version }}"
+    # chart_version is only optional when using digests (see asserts.yaml)
+    chart_version: "{{ keycloak_chart_version | default(omit) }}"
     release_name: "{{ keycloak_release_name }}"
     release_namespace: "{{ keycloak_namespace }}"
     release_state: "{{ keycloak_state }}"
