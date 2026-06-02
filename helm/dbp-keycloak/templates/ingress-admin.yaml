@@ -6,16 +6,16 @@ metadata:
   namespace: {{ include "common.names.namespace" . }}
   labels:
     {{- include "common.labels" . | nindent 4 }}
-  {{- with .Values.ingress.annotations }}
   annotations:
-    {{- toYaml . | nindent 4 }}
     # authentication type
     nginx.ingress.kubernetes.io/auth-type: "{{ .Values.ingress.admin.auth.type }}"
     # name of the secret that contains the user/password definitions
     nginx.ingress.kubernetes.io/auth-secret: "{{ .Values.ingress.admin.auth.secret }}"
     # message to display with an appropriate context why the authentication is required
     nginx.ingress.kubernetes.io/auth-realm: "{{ .Values.ingress.admin.auth.realm }}"
-  {{- end }}
+    {{- with .Values.ingress.annotations }}
+      {{- toYaml . | nindent 4 }}
+    {{- end }}
 spec:
   {{- if .Values.ingress.tls.enabled }}
   tls:
