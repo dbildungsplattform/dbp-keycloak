@@ -128,18 +128,18 @@ ingress:
   tls:
     enabled: {{ keycloak_ingress_tls_enabled }}
     secretName: "{{ keycloak_ingress_tls_secret_name }}"
-{% if keycloak_ingress_annotations | length > 0%}
-  annotations:
-{% for key, value in keycloak_ingress_annotations.items() %}
-    {{ key }}: "{{ value }}"
-{% endfor %}
-{% endif %}
   admin:
     enabled: {{ keycloak_ingress_admin_enabled }}
     auth:
       type: "{{ keycloak_ingress_admin_auth_type }}"
       secret: "{{ keycloak_ingress_admin_auth_secret }}"
       realm: "{{ keycloak_ingress_admin_auth_realm }}"
+{% if keycloak_ingress_annotations | length > 0%}
+  annotations:
+{% for key, value in keycloak_ingress_annotations.items() %}
+    {{ key }}: "{{ value }}"
+{% endfor %}
+{% endif %}
 
 serviceAccount:
   create: {{ keycloak_service_account_create }}
