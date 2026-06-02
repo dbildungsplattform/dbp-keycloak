@@ -134,6 +134,12 @@ ingress:
     {{ key }}: "{{ value }}"
 {% endfor %}
 {% endif %}
+  admin:
+    enabled: {{ keycloak_ingress_admin_enabled }}
+    auth:
+      type: "{{ keycloak_ingress_admin_auth_type }}"
+      secret: "{{ keycloak_ingress_admin_auth_secret }}"
+      realm: "{{ keycloak_ingress_admin_auth_realm }}"
 
 serviceAccount:
   create: {{ keycloak_service_account_create }}
