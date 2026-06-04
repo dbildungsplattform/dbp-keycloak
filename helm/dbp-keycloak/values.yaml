@@ -91,6 +91,7 @@ keycloak:
     port: "mgmt"
 
 ingress:
+  enabled: true
   ingressClassName: nginx
   tls:
     enabled: true
