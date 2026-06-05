@@ -32,9 +32,6 @@
       - "keycloak_readiness_probe_http_get_path is string"
       - "keycloak_ingress_tls_secret_name is string"
       - "keycloak_http_relative_path is string"
-      - "keycloak_ingress_admin_auth_type in ['basic', 'digest']"
-      - "keycloak_ingress_admin_auth_secret is string"
-      - "keycloak_ingress_admin_auth_realm is string"
 
       # List values
       - "keycloak_image_pull_secrets is iterable"

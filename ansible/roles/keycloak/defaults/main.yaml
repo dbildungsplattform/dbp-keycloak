@@ -107,6 +107,3 @@ keycloak_service_account_name: ""
 keycloak_service_account_automount_token: false
 
 keycloak_ingress_admin_enabled: false
-keycloak_ingress_admin_auth_type: "basic"
-keycloak_ingress_admin_auth_secret: "keycloak-basic-auth"
-keycloak_ingress_admin_auth_realm: "Authentication Required for Keycloak Admin Console"

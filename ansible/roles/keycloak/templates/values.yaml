@@ -130,10 +130,6 @@ ingress:
     secretName: "{{ keycloak_ingress_tls_secret_name }}"
   admin:
     enabled: {{ keycloak_ingress_admin_enabled }}
-    auth:
-      type: "{{ keycloak_ingress_admin_auth_type }}"
-      secret: "{{ keycloak_ingress_admin_auth_secret }}"
-      realm: "{{ keycloak_ingress_admin_auth_realm }}"
 {% if keycloak_ingress_annotations | length > 0%}
   annotations:
 {% for key, value in keycloak_ingress_annotations.items() %}

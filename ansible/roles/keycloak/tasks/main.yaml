@@ -8,10 +8,6 @@
     repo_url: "{{ keycloak_chart_repo_url }}"
   when: "'oci' not in keycloak_chart_ref"
 
-- name: debug
-  debug:
-    msg: "{{ lookup('template', 'values.yaml') | from_yaml }}"
-
 - name: "Deploy keycloak helmchart"
   delegate_to: localhost
   kubernetes.core.helm:
