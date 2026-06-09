@@ -51,11 +51,9 @@
       - "keycloak_hostname_backchannel_dynamic is boolean"
       - "keycloak_ingress_tls_enabled is boolean"
       - "keycloak_service_monitor_enabled is boolean"
-      - "keycloak_startup_probe_enabled is boolean"
-      - "keycloak_liveness_probe_enabled is boolean"
-      - "keycloak_readiness_probe_enabled is boolean"
       - "keycloak_service_account_create is boolean"
       - "keycloak_service_account_automount_token is boolean"
+      - "keycloak_ingress_admin_enabled is boolean"
 
       # Integer values
       - "keycloak_replica_count is integer"

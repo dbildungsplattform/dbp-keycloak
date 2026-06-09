@@ -101,6 +101,8 @@ ingress:
     nginx.ingress.kubernetes.io/proxy-buffers-number: "4"
   path:
     authOnly: false
+  admin:
+    enabled: false
 
 containerSecurityContext:
   runAsUser: 65532

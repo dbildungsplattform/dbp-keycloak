@@ -100,7 +100,6 @@ resources:
 threadPool: {{ keycloak_thread_pool }}
 
 startupProbe:
-  enabled: {{ keycloak_startup_probe_enabled }}
   httpGet:
     path: "{{ keycloak_startup_probe_http_get_path }}"
   periodSeconds: {{ keycloak_startup_probe_period_seconds }}
@@ -109,7 +108,6 @@ startupProbe:
   successThreshold: {{ keycloak_startup_probe_success_threshold }}
 
 livenessProbe:
-  enabled: {{ keycloak_liveness_probe_enabled }}
   httpGet:
     path: "{{ keycloak_liveness_probe_http_get_path }}"
   periodSeconds: {{ keycloak_liveness_probe_period_seconds }}
@@ -118,7 +116,6 @@ livenessProbe:
   successThreshold: {{ keycloak_liveness_probe_success_threshold }}
 
 readinessProbe:
-  enabled: {{ keycloak_readiness_probe_enabled }}
   httpGet:
     path: "{{ keycloak_readiness_probe_http_get_path }}"
   periodSeconds: {{ keycloak_readiness_probe_period_seconds }}
@@ -131,6 +128,8 @@ ingress:
   tls:
     enabled: {{ keycloak_ingress_tls_enabled }}
     secretName: "{{ keycloak_ingress_tls_secret_name }}"
+  admin:
+    enabled: {{ keycloak_ingress_admin_enabled }}
 {% if keycloak_ingress_annotations | length > 0%}
   annotations:
 {% for key, value in keycloak_ingress_annotations.items() %}
