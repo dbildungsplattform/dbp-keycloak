@@ -6,12 +6,12 @@
         <div id="kc-form" class="flex flex-col justify-center items-center h-full px-4 md:px-0">
             <a href="${client.baseUrl}" class="cursor-pointer" tabindex="1">
                 <img
-                    src="${url.resourcesPath}/img/logo.svg"
-                    width="88"
-                    height="82"
-                    alt="Enrichment - Zur Startseite"
-                    draggable="false"
-                    class="h-[41px] w-[44px] mt-8">
+                        src="${url.resourcesPath}/img/logo.svg"
+                        width="88"
+                        height="82"
+                        alt="Enrichment - Zur Startseite"
+                        draggable="false"
+                        class="h-[41px] w-[44px] mt-8">
             </a>
             <div id="kc-form-wrapper" class="w-full md:w-[500px] bg-base-light rounded-base mt-8">
                 <div class="p-16">
@@ -36,8 +36,8 @@
                                 <#if messagesPerField.existsError('username')>
                                     <svg class="inline-block fill-primary mr-2" height="20" width="20">
                                         <use
-                                            href="${url.resourcesPath}/icons/alert-circle-outline.svg#alert-circle-outline"
-                                            width="20" height="20"></use>
+                                                href="${url.resourcesPath}/icons/alert-circle-outline.svg#alert-circle-outline"
+                                                width="20" height="20"></use>
                                     </svg>
                                 </#if>
                             </span>
@@ -49,18 +49,18 @@
                                 </span>
                             </div>
                         </#if>
-
                         <div class="${properties.kcFormGroupClass!} ${properties.kcFormSettingClass!}">
                             <button tabindex="3" name="login" id="kc-login" type="submit" class="btn btn-block my-4">
                                 Passwort zurücksetzen
-                                <svg class="inline-block" height="20" width="20" fill="#ffffff">
-                                    <use href="${url.resourcesPath}/icons/arrow-forward.svg#arrow-forward"
-                                         width="20" height="20"></use>
-                                </svg>
                             </button>
                             <div id="kc-form-options" class="${properties.kcFormOptionsClass!} w-full flex justify-center">
                                 <div class="${properties.kcFormOptionsWrapperClass!}">
-                                    <span class="text-12">Kennen Sie Ihr Passwort? <a href="${url.loginUrl}" tabindex="4">zurück zur Anmeldung</a></span>
+                                    <span class="text-12">Kennen Sie Ihr Passwort?<a href="${url.loginUrl}" tabindex="4" class="link link-sm inline-flex items-center gap-[2px] ml-[6px] text-info">
+                                        <svg class="inline-block fill-current" height="14" width="14" aria-hidden="true" focusable="false">
+                                            <use href="${url.resourcesPath}/icons/keyboard-backspace.svg#keyboard-backspace" width="14" height="14"></use>
+                                        </svg>
+                                        zurück zur Anmeldung
+                                    </a></span>
                                 </div>
                             </div>
                         </div>
@@ -68,7 +68,12 @@
                 </div>
             </div>
             <div class="text-center mt-2">
-                <a href="${client.baseUrl}" tabindex="5" class="link cursor-pointer">zurück zur Startseite</a>
+                <a href="${client.baseUrl}" tabindex="5" class="link cursor-pointer inline-flex items-center gap-[4px] text-info">
+                    <svg class="inline-block fill-current" height="16" width="16" aria-hidden="true" focusable="false">
+                        <use href="${url.resourcesPath}/icons/keyboard-backspace.svg#keyboard-backspace" width="16" height="16"></use>
+                    </svg>
+                    zurück zur Startseite
+                </a>
             </div>
         </div>
         <script type="module" src="${url.resourcesPath}/js/passwordVisibility.js"></script>
