@@ -113,12 +113,14 @@
                                     </svg>
                                     Kontakt
                                 </a>
-                                <div class="cursor-pointer footer-item p-[1px] inline-flex items-center gap-[4px] text-info">
+                                <a href="${client.baseUrl}/legal/privacy" target="_blank"
+                                   aria-describedby="footer-external-link-hint"
+                                   class="cursor-pointer footer-item p-[1px] inline-flex items-center gap-[4px] text-info">
                                     <svg class="inline-block fill-current" height="16" width="16" aria-hidden="true" focusable="false">
                                         <use href="${url.resourcesPath}/icons/arrow-forward.svg#arrow-forward" width="16" height="16"></use>
                                     </svg>
                                     Datenschutz
-                                </div>
+                                </a>
                             </div>
                             <div class="flex flex-wrap gap-x-[28px] gap-y-[10px] select-none">
                                 <a href="${client.baseUrl}/legal/imprint" target="_blank"
