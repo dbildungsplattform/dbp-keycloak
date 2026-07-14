@@ -13,10 +13,11 @@ ARG KEYCLOAK_VARIANT="generic"
 # load env vars for base and the selected variant
 COPY ./variants/base/env /tmp/env-base
 COPY ./variants/${KEYCLOAK_VARIANT}/env /tmp/env-variant
+COPY keycloak-2.asc /tmp/keycloak-2.asc
 
 # Download und Import des Keycloak-PGP-Schlüssels
 RUN apt-get update && apt-get install -y --no-install-recommends curl gnupg unzip tar && \
-    gpg --import keycloak-2.asc
+    gpg --import /tmp/keycloak-2.asc
 
 RUN set -o allexport && \
     . /tmp/env-base && \
