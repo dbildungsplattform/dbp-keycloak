@@ -13,6 +13,11 @@ ARG KEYCLOAK_VARIANT="generic"
 # load env vars for base and the selected variant
 COPY ./variants/base/env /tmp/env-base
 COPY ./variants/${KEYCLOAK_VARIANT}/env /tmp/env-variant
+COPY keycloak-2.asc /tmp/keycloak-2.asc
+
+# download and import the keycloak-PGP-Key
+RUN apt-get update && apt-get install -y --no-install-recommends curl gnupg tar && \
+    gpg --import /tmp/keycloak-2.asc
 
 RUN set -o allexport && \
     . /tmp/env-base && \
@@ -20,22 +25,14 @@ RUN set -o allexport && \
     set +a && \
     env && \
     echo "Building variant ${KEYCLOAK_VARIANT} with keycloak version ${KEYCLOAK_VERSION}" && \
-    apt-get update && apt-get install -y --no-install-recommends curl tar && \
     mkdir "/tmp/keycloak" && \
-    curl --location --fail \
-    --request GET \
-    https://github.com/keycloak/keycloak/releases/download/${KEYCLOAK_VERSION}/keycloak-${KEYCLOAK_VERSION}.tar.gz \
-    --output /tmp/keycloak/keycloak-${KEYCLOAK_VERSION}.tar.gz && \
-    curl --location --fail \
-    --request GET \
-    https://github.com/keycloak/keycloak/releases/download/${KEYCLOAK_VERSION}/keycloak-${KEYCLOAK_VERSION}.tar.gz.sha1 \
-    --output /tmp/keycloak/keycloak-${KEYCLOAK_VERSION}.tar.gz.sha1 && \
     cd /tmp/keycloak && \
-    # Format the .sha1 file for sha1sum -c
-    echo "$(cat keycloak-${KEYCLOAK_VERSION}.tar.gz.sha1)  keycloak-${KEYCLOAK_VERSION}.tar.gz" > keycloak-${KEYCLOAK_VERSION}.tar.gz.sha1 && \
-    sha1sum -c keycloak-${KEYCLOAK_VERSION}.tar.gz.sha1 && \
-    tar -xvf keycloak-${KEYCLOAK_VERSION}.tar.gz && \
-    rm keycloak-${KEYCLOAK_VERSION}.tar.gz keycloak-${KEYCLOAK_VERSION}.tar.gz.sha1 && \
+    export ARCHIVE=keycloak-${KEYCLOAK_VERSION}.tar.gz && \
+    curl --fail --location --remote-name --request GET https://github.com/keycloak/keycloak/releases/download/${KEYCLOAK_VERSION}/${ARCHIVE} && \
+    curl --fail --location --remote-name --request GET https://github.com/keycloak/keycloak/releases/download/${KEYCLOAK_VERSION}/${ARCHIVE}.asc && \
+    gpg --verify ${ARCHIVE}.asc ${ARCHIVE} && \
+    tar -xvf ${ARCHIVE} && \
+    rm ${ARCHIVE}* && \
     mv keycloak-* /opt/keycloak && \
     mkdir -p /opt/keycloak/data && \
     mkdir -p /opt/keycloak/themes && \
@@ -64,7 +61,6 @@ RUN set -o allexport && \
     /opt/keycloak/bin/kc.sh show-config
 
 RUN echo "Built variant $KEYCLOAK_VARIANT"
-
 
 # build final image
 FROM base AS final

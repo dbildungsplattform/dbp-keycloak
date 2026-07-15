@@ -1,7 +1,7 @@
 <#macro registrationLayout bodyClass="" displayInfo=false displayMessage=true displayRequiredFields=false>
     <!DOCTYPE html>
     <html
-        class="${properties.kcHtmlClass!}"<#if realm.internationalizationEnabled> lang="${locale.currentLanguageTag}"</#if>>
+            class="${properties.kcHtmlClass!}"<#if realm.internationalizationEnabled> lang="${locale.currentLanguageTag}"</#if>>
 
     <head>
         <meta charset="utf-8">
@@ -98,31 +98,56 @@
 
                 <div class="w-full h-[354px] md:h-[170px] bg-base-light flex justify-center items-center">
                     <div
-                        class="max-w-footer w-full grid grid-cols-2 ps-2.5 md:px-[93px] footer:px-0 gap-[38px] md:gap-0">
+                            class="max-w-footer w-full grid grid-cols-2 ps-2.5 md:px-[93px] footer:px-0 gap-[38px] md:gap-0">
                         <div class="col-span-2 md:col-span-1 flex flex-col justify-end gap-y-[10px] mt-4 md:mt-0">
                             <div class="flex flex-wrap gap-x-[28px] gap-y-[10px] select-none">
-                                <a href="${client.baseUrl}/faq" class="cursor-pointer footer-item p-[1px]">FAQ</a>
-                                <a href="${client.baseUrl}/contact" class="cursor-pointer footer-item p-[1px]">Kontakt</a>
-                                <div class="cursor-pointer footer-item p-[1px]">Datenschutz</div>
+                                <a href="${client.baseUrl}/faq" class="cursor-pointer footer-item p-[1px] inline-flex items-center gap-[4px] text-info">
+                                    <svg class="inline-block fill-current" height="16" width="16" aria-hidden="true" focusable="false">
+                                        <use href="${url.resourcesPath}/icons/arrow-forward.svg#arrow-forward" width="16" height="16"></use>
+                                    </svg>
+                                    FAQ
+                                </a>
+                                <a href="${client.baseUrl}/contact" class="cursor-pointer footer-item p-[1px] inline-flex items-center gap-[4px] text-info">
+                                    <svg class="inline-block fill-current" height="16" width="16" aria-hidden="true" focusable="false">
+                                        <use href="${url.resourcesPath}/icons/arrow-forward.svg#arrow-forward" width="16" height="16"></use>
+                                    </svg>
+                                    Kontakt
+                                </a>
+                                <a href="${client.baseUrl}/legal/privacy" target="_blank"
+                                   aria-describedby="footer-external-link-hint"
+                                   class="cursor-pointer footer-item p-[1px] inline-flex items-center gap-[4px] text-info">
+                                    <svg class="inline-block fill-current" height="16" width="16" aria-hidden="true" focusable="false">
+                                        <use href="${url.resourcesPath}/icons/arrow-forward.svg#arrow-forward" width="16" height="16"></use>
+                                    </svg>
+                                    Datenschutz
+                                </a>
                             </div>
                             <div class="flex flex-wrap gap-x-[28px] gap-y-[10px] select-none">
                                 <a href="${client.baseUrl}/legal/imprint" target="_blank"
-                                   class="cursor-pointer footer-item p-[1px]">
+                                   aria-describedby="footer-external-link-hint"
+                                   class="cursor-pointer footer-item p-[1px] inline-flex items-center gap-[4px] text-info">
+                                    <svg class="inline-block fill-current" height="16" width="16" aria-hidden="true" focusable="false">
+                                        <use href="${url.resourcesPath}/icons/arrow-forward.svg#arrow-forward" width="16" height="16"></use>
+                                    </svg>
                                     Impressum
                                 </a>
-                                <div class="cursor-pointer footer-item p-[1px]">Barrierefreiheit</div>
+                                <div class="cursor-pointer footer-item p-[1px] inline-flex items-center gap-[4px] text-info">
+                                    <svg class="inline-block fill-current" height="16" width="16" aria-hidden="true" focusable="false">
+                                        <use href="${url.resourcesPath}/icons/arrow-forward.svg#arrow-forward" width="16" height="16"></use>
+                                    </svg>
+                                    Barrierefreiheit
+                                </div>
+                                <span id="footer-external-link-hint" class="sr-only">Öffnet Link in neuem Tab</span>
                             </div>
                         </div>
                         <div
-                            class="col-span-2 md:col-span-1 flex justify-center items-center md:justify-end mb-4 md:mb-0">
-                            <a href="">
-                                <svg height="114" width="274" aria-hidden="true" focusable="false>
-                                    <use href="${url.resourcesPath}/img/schleswig-holstein.svg#schleswig-holstein"
-                                         class="text-info"
-                                         height="114" width="274">
-                                    </use>
-                                </svg>
-                            </a>
+                                class="col-span-2 md:col-span-1 flex justify-center items-center md:justify-end mb-4 md:mb-0">
+                            <svg height="114" width="274" aria-hidden="true" focusable="false">
+                                <use href="${url.resourcesPath}/img/schleswig-holstein.svg#schleswig-holstein"
+                                     class="text-info"
+                                     height="114" width="274">
+                                </use>
+                            </svg>
                         </div>
                     </div>
                 </div>
