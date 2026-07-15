@@ -16,7 +16,7 @@ COPY ./variants/${KEYCLOAK_VARIANT}/env /tmp/env-variant
 COPY keycloak-2.asc /tmp/keycloak-2.asc
 
 # download and import the keycloak-PGP-Key
-RUN apt-get update && apt-get install -y --no-install-recommends curl gnupg unzip tar && \
+RUN apt-get update && apt-get install -y --no-install-recommends curl gnupg tar && \
     gpg --import /tmp/keycloak-2.asc
 
 RUN set -o allexport && \
