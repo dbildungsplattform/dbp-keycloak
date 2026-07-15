@@ -15,7 +15,7 @@ COPY ./variants/base/env /tmp/env-base
 COPY ./variants/${KEYCLOAK_VARIANT}/env /tmp/env-variant
 COPY keycloak-2.asc /tmp/keycloak-2.asc
 
-# Download und Import des Keycloak-PGP-Schlüssels
+# download and import the keycloak-PGP-Key
 RUN apt-get update && apt-get install -y --no-install-recommends curl gnupg unzip tar && \
     gpg --import /tmp/keycloak-2.asc
 
@@ -27,12 +27,12 @@ RUN set -o allexport && \
     echo "Building variant ${KEYCLOAK_VARIANT} with keycloak version ${KEYCLOAK_VERSION}" && \
     mkdir "/tmp/keycloak" && \
     cd /tmp/keycloak && \
-    export ARCHIVE=keycloak-${KEYCLOAK_VERSION}.tar.gz; \
-    curl -fLO https://github.com/keycloak/keycloak/releases/download/${KEYCLOAK_VERSION}/${ARCHIVE}; \
-    curl -fLO https://github.com/keycloak/keycloak/releases/download/${KEYCLOAK_VERSION}/${ARCHIVE}.asc; \
-    gpg --verify ${ARCHIVE}.asc ${ARCHIVE}; \
-    tar -xvf ${ARCHIVE}; \
-    rm ${ARCHIVE}*; \
+    export ARCHIVE=keycloak-${KEYCLOAK_VERSION}.tar.gz && \
+    curl --fail --location --remote-name --request GET https://github.com/keycloak/keycloak/releases/download/${KEYCLOAK_VERSION}/${ARCHIVE} && \
+    curl --fail --location --remote-name --request GET https://github.com/keycloak/keycloak/releases/download/${KEYCLOAK_VERSION}/${ARCHIVE}.asc && \
+    gpg --verify ${ARCHIVE}.asc ${ARCHIVE} && \
+    tar -xvf ${ARCHIVE} && \
+    rm ${ARCHIVE}* && \
     mv keycloak-* /opt/keycloak && \
     mkdir -p /opt/keycloak/data && \
     mkdir -p /opt/keycloak/themes && \
