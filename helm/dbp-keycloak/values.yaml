@@ -103,6 +103,8 @@ ingress:
     authOnly: false
   admin:
     enabled: false
+    allowedIPs:
+      - 141.91.0.0/16
 
 containerSecurityContext:
   runAsUser: 65532

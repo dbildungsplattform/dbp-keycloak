@@ -7,6 +7,8 @@ metadata:
   labels:
     {{- include "common.labels" . | nindent 4 }}
   annotations:
+    traefik.ingress.kubernetes.io/router.middlewares: >-
+      {{ include "common.names.namespace" . }}-{{ include "common.names.fullname" . }}-ipallowlist@kubernetescrd
     {{- with .Values.ingress.annotations }}
       {{- toYaml . | nindent 4 }}
     {{- end }}
