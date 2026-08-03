@@ -130,6 +130,7 @@ ingress:
     secretName: "{{ keycloak_ingress_tls_secret_name }}"
   admin:
     enabled: {{ keycloak_ingress_admin_enabled }}
+    allowedIPs: {{ keycloak_ingress_admin_allowed_ips }}
 {% if keycloak_ingress_annotations | length > 0%}
   annotations:
 {% for key, value in keycloak_ingress_annotations.items() %}
