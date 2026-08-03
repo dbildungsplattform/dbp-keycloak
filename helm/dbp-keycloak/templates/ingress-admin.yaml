@@ -7,8 +7,10 @@ metadata:
   labels:
     {{- include "common.labels" . | nindent 4 }}
   annotations:
+    {{- if (not (empty .Values.ingress.admin.allowedIPs)) }}
     traefik.ingress.kubernetes.io/router.middlewares: >-
       {{ include "common.names.namespace" . }}-{{ include "common.names.fullname" . }}-ipallowlist@kubernetescrd
+    {{- end }}
     {{- with .Values.ingress.annotations }}
       {{- toYaml . | nindent 4 }}
     {{- end }}
