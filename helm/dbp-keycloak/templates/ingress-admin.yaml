@@ -10,6 +10,7 @@ metadata:
     {{- if (not (empty .Values.ingress.admin.allowedIPs)) }}
     traefik.ingress.kubernetes.io/router.middlewares: >-
       {{ include "common.names.namespace" . }}-{{ include "common.names.fullname" . }}-ipallowlist@kubernetescrd
+    traefik.ingress.kubernetes.io/router.priority: "100"
     {{- end }}
     {{- with .Values.ingress.annotations }}
       {{- toYaml . | nindent 4 }}
