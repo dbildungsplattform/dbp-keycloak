@@ -1,4 +1,4 @@
-{{- if and (not (empty .Values.ingress.admin.allowedIPs)) .Values.ingress.admin.enabled }}
+{{- if and .Values.ingress.admin.allowedIPs .Values.ingress.admin.enabled }}
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
