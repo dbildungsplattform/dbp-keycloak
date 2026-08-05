@@ -28,13 +28,14 @@ jobs:
       - name: Run Kubeconform
         run: |
           export PATH="$(go env GOPATH)/bin:${PATH}"
+          set -o pipefail
 
           helm template --output-dir ${{ env.HELM_OUTPUT_DIR }} helm/dbp-keycloak
 
           kubeconform \
           -schema-location default \
           -schema-location \
-          'https://raw.githubusercontent.com/datreeio/CRDs-catalog/'\
+          'https://raw.githubusercontent.com/datreeio/CRDs-catalog/' \
           '3348d879deb1cb95a5e93c1c206ffa4a0a494c2c/{{.Group}}/'\
           '{{.ResourceKind}}_{{.ResourceAPIVersion}}.json' \
           -strict \
