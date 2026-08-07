@@ -103,6 +103,8 @@ ingress:
     authOnly: false
   admin:
     enabled: false
+    # this only works with the new traefik ingress controller
+    allowedIPs: []
 
 containerSecurityContext:
   runAsUser: 65532

@@ -7,7 +7,9 @@ on:
 
 env:
   KUBECONFORM_SARIF_FILE: "kubeconform-results.sarif"
+  KUBECONFORM_OUTPUT_FILE: "kubeconform-results.txt"
   HELM_OUTPUT_DIR: "helm-template"
+
 
 jobs:
   lint:
@@ -28,19 +30,21 @@ jobs:
       - name: Run Kubeconform
         run: |
           export PATH="$(go env GOPATH)/bin:${PATH}"
+          set -o pipefail
 
           helm template --output-dir ${{ env.HELM_OUTPUT_DIR }} helm/dbp-keycloak
 
           kubeconform \
           -schema-location default \
           -schema-location \
-          'https://raw.githubusercontent.com/datreeio/CRDs-catalog/\
-          3348d879deb1cb95a5e93c1c206ffa4a0a494c2c/{{.Group}}/\
-          {{.ResourceKind}}_{{.ResourceAPIVersion}}.json' \
+          'https://raw.githubusercontent.com/datreeio/CRDs-catalog/'\
+          '3348d879deb1cb95a5e93c1c206ffa4a0a494c2c/{{.Group}}/'\
+          '{{.ResourceKind}}_{{.ResourceAPIVersion}}.json' \
           -strict \
           -output json \
           ${{ env.HELM_OUTPUT_DIR }} \
-          | python3 kubeconform2sarif.py -r helm > ${{ env.KUBECONFORM_SARIF_FILE }}
+          | tee ${{ env.KUBECONFORM_OUTPUT_FILE }}
+          python3 kubeconform2sarif.py -r helm < ${{ env.KUBECONFORM_OUTPUT_FILE }} > ${{ env.KUBECONFORM_SARIF_FILE }}
       - name: upload kubeconform results
         if: ${{ always() }}
         uses: github/codeql-action/upload-sarif@68bde559dea0fdcac2102bfdf6230c5f70eb485e # v4.35.4
