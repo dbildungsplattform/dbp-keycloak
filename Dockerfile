@@ -24,8 +24,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # hadolint ignore=DL3003
 RUN set -o allexport && \
-    . /tmp/env-base && \
-    . /tmp/env-variant && \
+    . "/tmp/env-base" && \
+    . "/tmp/env-variant" && \
     set +a && \
     env && \
     echo "Building variant ${KEYCLOAK_VARIANT} with keycloak version ${KEYCLOAK_VERSION}" && \
