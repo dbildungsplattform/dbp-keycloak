@@ -41,6 +41,7 @@
       - "keycloak_extra_volume_mounts is iterable"
       - "keycloak_extra_config_external is iterable"
       - "keycloak_extra_secret_external is iterable"
+      - "keycloak_ingress_admin_allowed_ips is iterable"
 
       # Boolean values
       - "keycloak_create_namespace is boolean"
