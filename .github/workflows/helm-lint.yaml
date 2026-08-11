@@ -6,6 +6,7 @@ on:
       - "**"
 env:
   HELM_LINT_SARIF_FILE: "helm-lint-results.sarif"
+  HELM_LINT_OUTPUT_FILE: "helm-lint-results.txt"
 jobs:
   lint:
     name: Helm Lint
@@ -23,7 +24,11 @@ jobs:
         uses: azure/setup-helm@dda3372f752e03dde6b3237bc9431cdc2f7a02a2 # v5.0.0
 
       - name: Run helm lint
-        run: helm lint helm/dbp-keycloak | python3 helm_lint2sarif.py > ${{ env.HELM_LINT_SARIF_FILE }}
+        run: |
+          set -o pipefail
+
+          helm lint helm/dbp-keycloak | tee ${{ env.HELM_LINT_OUTPUT_FILE }}
+          python3 helm_lint2sarif.py < ${{ env.HELM_LINT_OUTPUT_FILE }} > ${{ env.HELM_LINT_SARIF_FILE }}
       - name: upload helm lint results
         if: ${{ always() }}
         uses: github/codeql-action/upload-sarif@68bde559dea0fdcac2102bfdf6230c5f70eb485e # v4.35.4
