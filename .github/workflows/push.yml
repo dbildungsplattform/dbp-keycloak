@@ -2,8 +2,12 @@ name: Dev Build and Release
 
 on:
   push:
-    branches-ignore:
-      - 'release'
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
 jobs:
   branch_meta:
     runs-on: ubuntu-latest
@@ -21,11 +25,16 @@ jobs:
           BRANCH_SHA: ${{ github.sha }}
         run: |
           if [ "${{ github.event_name }}" == 'pull_request' ]; then
-            echo "branch=$PR_HEAD_REF" >> $GITHUB_OUTPUT
-            echo "sha=$PR_HEAD_SHA" >> $GITHUB_OUTPUT
+            echo "PR"
+            echo "branch=$PR_HEAD_REF" | tee -a $GITHUB_OUTPUT
+            echo "sha=$PR_HEAD_SHA" | tee -a $GITHUB_OUTPUT
+
+            echo "branch=$BRANCH_REF_NAME"
+            echo "sha=$BRANCH_SHA"
           else
-            echo "branch=$BRANCH_REF_NAME" >> $GITHUB_OUTPUT
-            echo "sha=$BRANCH_SHA" >> $GITHUB_OUTPUT
+            echo "Branch"
+            echo "branch=$BRANCH_REF_NAME" | tee -a $GITHUB_OUTPUT
+            echo "sha=$BRANCH_SHA" | tee -a $GITHUB_OUTPUT
           fi
 
   build_and_upload_image:
