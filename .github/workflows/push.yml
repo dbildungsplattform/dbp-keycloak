@@ -28,7 +28,7 @@ jobs:
           if [ "${{ github.event_name }}" == 'pull_request' ]; then
             echo "PR"
             echo "branch=$PR_HEAD_REF" | tee -a $GITHUB_OUTPUT
-            echo "sha=$PR_HEAD_SHA" | tee -a $GITHUB_OUTPUT
+            echo "sha=$BRANCH_SHA" | tee -a $GITHUB_OUTPUT
 
             echo "branch=$BRANCH_REF_NAME"
             echo "sha=$BRANCH_SHA"
