@@ -2,12 +2,8 @@ name: Dev Build and Release
 
 on:
   push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
-
+    branches-ignore:
+      - 'release'
 jobs:
   branch_meta:
     runs-on: ubuntu-latest
