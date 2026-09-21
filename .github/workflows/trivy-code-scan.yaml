@@ -3,7 +3,10 @@ name: trivy-code-scan
 on:
   push:
     branches:
-      - "**"
+      - main
+  pull_request:
+    branches:
+      - main
 
 env:
   TRIVY_SCAN_SARIF_FILE: "trivy-results.sarif"
