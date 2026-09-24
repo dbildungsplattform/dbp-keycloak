@@ -3,7 +3,11 @@ name: helm lint
 on:
   push:
     branches:
-      - "**"
+      - main
+  pull_request:
+    branches:
+      - main
+
 env:
   HELM_LINT_SARIF_FILE: "helm-lint-results.sarif"
   HELM_LINT_OUTPUT_FILE: "helm-lint-results.txt"
