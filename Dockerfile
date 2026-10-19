@@ -2,7 +2,7 @@ FROM debian:13-slim AS base
 
 # prepare base, as both build and final layer need java
 RUN apt-get update && \
-  apt-get install -y --no-install-recommends openjdk-21-jre-headless=21.0.11+10-1~deb13u2 && \
+  apt-get install -y --no-install-recommends openjdk-21-jre-headless=21.0.* && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/*
 
@@ -17,9 +17,9 @@ COPY keycloak-2.asc /tmp/keycloak-2.asc
 
 # download and import the keycloak-PGP-Key
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    curl=8.14.1-2+deb13u4 \
-    gnupg=2.4.7-21+deb13u1 \
-    tar=1.35+dfsg-3.1 && \
+    curl=8.14.* \
+    gnupg=2.4.* \
+    tar=1.35* && \
     gpg --import /tmp/keycloak-2.asc
 
 # hadolint ignore=DL3003
