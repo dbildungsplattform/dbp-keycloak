@@ -45,12 +45,21 @@
             </#list>
         </#if>
         <script type="module">
-            import {checkCookiesAndSetTimer} from "${url.resourcesPath}/js/authChecker.js";
+            import {startSessionPolling} from "${url.resourcesPath}/js/authChecker.js";
 
-            checkCookiesAndSetTimer(
+            startSessionPolling(
                 "${url.ssoLoginInOtherTabsUrl?no_esc}"
             );
         </script>
+        <#if authenticationSession??>
+            <script type="module">
+                import {checkAuthSession} from "${url.resourcesPath}/js/authChecker.js";
+
+                checkAuthSession(
+                    "${authenticationSession.authSessionIdHash}"
+                );
+            </script>
+        </#if>
     </head>
 
     <body class="m-0">
@@ -158,6 +167,7 @@
                                  width="20" height="20"></use>
                         </svg>
                         <div class="text-neutral-content font-semibold text-[14px]">
+                            <span id="footer-year"></span>
                             Ministerium für Allgemeine und Berufliche Bildung, Wissenschaft, Forschung und Kultur des Landes Schleswig-Holstein (MBWFK)
                         </div>
                     </div>
