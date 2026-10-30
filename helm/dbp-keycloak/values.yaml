@@ -106,6 +106,8 @@ ingress:
     # this only works with the new traefik ingress controller
     allowedIPs: []
 
+priorityClassName: ""
+
 containerSecurityContext:
   runAsUser: 65532
   runAsNonRoot: true
