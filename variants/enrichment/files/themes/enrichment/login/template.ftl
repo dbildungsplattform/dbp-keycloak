@@ -146,7 +146,7 @@
                                     </svg>
                                     Barrierefreiheit
                                 </div>
-                                <span id="footer-external-link-hint" class="sr-only">Öffnet Link in neuem Tab</span>
+                                <span id="footer-external-link-hint" hidden>Öffnet Link in neuem Tab</span>
                             </div>
                         </div>
                         <div
