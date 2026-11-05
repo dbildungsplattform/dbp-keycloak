@@ -34,6 +34,7 @@ jobs:
           scan-ref: "."
           exit-code: '1'
           severity: "CRITICAL,HIGH"
+          limit-severities-for-sarif: true
 
       - name: run trivy vulnerability scanner with table format
         if: ${{ always() }}
