@@ -28,11 +28,11 @@
                                     </span>
                             <input tabindex="2" id="username" name="username" value="${(auth.attemptedUsername!'')}"
                                    type="text" autofocus autocomplete="username" placeholder="Nutzername oder E-Mail"
-                                   class="input input-bordered input-sm <#if messagesPerField.existsError('username','password')>border-primary</#if>"
+                                   class="input input-bordered input-sm <#if messagesPerField.existsError('username','password')>border-primary</#if> <#if messagesPerField.existsError('username')>input-icon-space</#if>"
                                    aria-invalid="<#if messagesPerField.existsError('username')>true</#if>"
                                    aria-describedby="<#if messagesPerField.existsError('username')>username-empty</#if>"
                             />
-                            <span class="absolute right-0 bottom-0.5">
+                            <span class="absolute input-icon-group">
                                 <#if messagesPerField.existsError('username')>
                                     <svg class="inline-block fill-primary mr-2" height="20" width="20">
                                         <use
