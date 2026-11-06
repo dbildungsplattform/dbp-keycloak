@@ -6,12 +6,12 @@
         <div id="kc-form" class="flex flex-col justify-center items-center h-full px-4 md:px-0">
             <a href="${client.baseUrl}" class="cursor-pointer" tabindex="1">
                 <img
-                    src="${url.resourcesPath}/img/logo.svg"
-                    width="88"
-                    height="82"
-                    alt="Enrichment - Zur Startseite"
-                    draggable="false"
-                    class="h-[41px] w-[44px] mt-8">
+                        src="${url.resourcesPath}/img/logo.svg"
+                        width="88"
+                        height="82"
+                        alt="Enrichment - Zur Startseite"
+                        draggable="false"
+                        class="h-[41px] w-[44px] mt-8">
             </a>
             <div id="kc-form-wrapper" class="w-full md:w-[500px] bg-base-light rounded-base mt-8">
                 <div class="p-16">
@@ -73,26 +73,29 @@
                             </span>
                             <input tabindex="2" id="password-new" name="password-new"
                                    type="password" autofocus autocomplete="new-password" placeholder="Passwort"
-                                   class="input input-bordered input-sm <#if messagesPerField.existsError('password')>border-primary</#if>"
+                                   class="input input-bordered input-sm <#if messagesPerField.existsError('password')>border-primary input-icon-space-2<#else>input-icon-space</#if>"
                                    aria-invalid="<#if messagesPerField.existsError('password','password-confirm')>true</#if>"
                             />
-                            <span class="absolute right-0 bottom-0.5">
-                                <span class="cursor-pointer"
-                                      aria-label="${msg("showPassword")}"
-                                      aria-controls="password-new" data-password-toggle tabindex="3"
-                                      data-icon-show="${properties.kcFormPasswordVisibilityIconShow!}"
-                                      data-icon-hide="${properties.kcFormPasswordVisibilityIconHide!}">
-                                    <svg class="inline-block mr-2" height="20" width="20">
-                                        <use
-                                            href="${url.resourcesPath}/icons/eye-off-outline.svg#eye-off-outline"
-                                            width="20" height="20"></use>
-                                    </svg>
-                                </span>
+                            <span class="absolute input-icon-group">
+                                        <button type="button"
+                                                class="cursor-pointer inline-flex items-center justify-center bg-transparent border-none p-0"
+                                                aria-label="${msg("showPassword")}"
+                                                aria-controls="password-new"
+                                                aria-pressed="false"
+                                                data-password-toggle
+                                                data-label-show="${msg("showPassword")}"
+                                                data-label-hide="${msg("hidePassword")}">
+                                            <svg class="inline-block mr-2" height="20" width="20" aria-hidden="true">
+                                                <use
+                                                        href="${url.resourcesPath}/icons/eye-off-outline.svg#eye-off-outline"
+                                                        width="20" height="20"></use>
+                                            </svg>
+                                        </button>
                                 <#if messagesPerField.existsError('password')>
                                     <svg class="inline-block fill-primary mr-2" height="20" width="20">
                                         <use
-                                            href="${url.resourcesPath}/icons/alert-circle-outline.svg#alert-circle-outline"
-                                            width="20" height="20"></use>
+                                                href="${url.resourcesPath}/icons/alert-circle-outline.svg#alert-circle-outline"
+                                                width="20" height="20"></use>
                                     </svg>
                                 </#if>
                             </span>
@@ -104,26 +107,29 @@
                             </span>
                             <input tabindex="4" id="password-confirm" name="password-confirm"
                                    type="password" autofocus autocomplete="new-password" placeholder="Passwort"
-                                   class="input input-bordered input-sm <#if messagesPerField.existsError('password')>border-primary</#if>"
+                                   class="input input-bordered input-sm <#if messagesPerField.existsError('password')>border-primary input-icon-space-2<#else>input-icon-space</#if>"
                                    aria-invalid="<#if messagesPerField.existsError('password-confirm')>true</#if>"
                             />
-                            <span class="absolute right-0 bottom-0.5">
-                                <span class="cursor-pointer"
-                                      aria-label="${msg("showPassword")}"
-                                      aria-controls="password-confirm" data-password-toggle tabindex="5"
-                                      data-icon-show="${properties.kcFormPasswordVisibilityIconShow!}"
-                                      data-icon-hide="${properties.kcFormPasswordVisibilityIconHide!}">
-                                    <svg class="inline-block mr-2" height="20" width="20">
-                                        <use
-                                            href="${url.resourcesPath}/icons/eye-off-outline.svg#eye-off-outline"
-                                            width="20" height="20"></use>
-                                    </svg>
-                                </span>
+                            <span class="absolute input-icon-group">
+                                        <button type="button"
+                                                class="cursor-pointer inline-flex items-center justify-center bg-transparent border-none p-0"
+                                                aria-label="${msg("showPassword")}"
+                                                aria-controls="password-confirm"
+                                                aria-pressed="false"
+                                                data-password-toggle
+                                                data-label-show="${msg("showPassword")}"
+                                                data-label-hide="${msg("hidePassword")}">
+                                            <svg class="inline-block mr-2" height="20" width="20" aria-hidden="true">
+                                                <use
+                                                        href="${url.resourcesPath}/icons/eye-off-outline.svg#eye-off-outline"
+                                                        width="20" height="20"></use>
+                                            </svg>
+                                        </button>
                                 <#if messagesPerField.existsError('password')>
                                     <svg class="inline-block fill-primary mr-2" height="20" width="20">
                                         <use
-                                            href="${url.resourcesPath}/icons/alert-circle-outline.svg#alert-circle-outline"
-                                            width="20" height="20"></use>
+                                                href="${url.resourcesPath}/icons/alert-circle-outline.svg#alert-circle-outline"
+                                                width="20" height="20"></use>
                                     </svg>
                                 </#if>
                             </span>
