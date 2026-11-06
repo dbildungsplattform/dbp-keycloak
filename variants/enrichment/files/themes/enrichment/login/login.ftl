@@ -49,10 +49,10 @@
                                     </span>
                                     <input tabindex="0" id="username" name="username" value="${(login.username!'')}"
                                            type="text" autofocus autocomplete="username" placeholder="Nutzername"
-                                           class="input input-bordered input-sm <#if messagesPerField.existsError('username','password')>border-primary</#if>"
+                                           class="input input-bordered input-sm <#if messagesPerField.existsError('username','password')>border-primary input-icon-space</#if>"
                                            aria-invalid="<#if messagesPerField.existsError('username','password')>true</#if>"
                                     />
-                                    <span class="absolute right-0 bottom-0.5">
+                                    <span class="absolute input-icon-group">
                                         <#if messagesPerField.existsError('username','password')>
                                             <svg class="inline-block fill-primary mr-2" height="20" width="20" aria-hidden="true">
                                                 <use
@@ -75,11 +75,11 @@
                                     </span>
                                     <input tabindex="0" id="password" placeholder="Passwort" name="password"
                                            type="password" autocomplete="current-password"
-                                           class="input input-bordered input-sm <#if messagesPerField.existsError('username','password')>border-primary</#if>"
+                                           class="input input-bordered input-sm <#if messagesPerField.existsError('username','password')>border-primary input-icon-space-2<#else>input-icon-space</#if>"
                                            aria-invalid="<#if messagesPerField.existsError('username','password')>true</#if>"
                                            aria-label="Passwort eingeben"
                                     />
-                                    <span class="absolute right-0 bottom-0.5 select-none">
+                                    <span class="absolute input-icon-group select-none">
                                         <button type="button"
                                                 class="cursor-pointer inline-flex items-center justify-center bg-white border-none p-0"
                                                 aria-label="${msg("showPassword")}"
