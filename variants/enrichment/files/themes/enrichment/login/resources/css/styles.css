@@ -355,6 +355,25 @@ body {
     border-color: #d0d0d0;
 }
 
+.input-icon-group {
+    display: flex;
+    align-items: center;
+    right: 1px;
+    bottom: 1px;
+    height: 26px;
+    padding-left: 0.25rem;
+    background-color: #ffffff;
+    border-radius: 0 4px 4px 0;
+}
+
+.input-icon-space {
+    padding-right: 2.25rem;
+}
+
+.input-icon-space-2 {
+    padding-right: 4rem;
+}
+
 .input-sm {
     height: 28px;
 }

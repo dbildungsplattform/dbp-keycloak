@@ -1,147 +1,79 @@
 <#import "template.ftl" as layout>
-<@layout.registrationLayout displayMessage=true; section>
+<@layout.registrationLayout displayMessage=false; section>
     <#if section = "header">
-        ${msg("loginAccountTitle")}
+        <#if messageHeader??>
+            ${kcSanitize(msg("${messageHeader}"))?no_esc}
+        <#else>
+            ${message.summary}
+        </#if>
     <#elseif section = "form">
-        <div id="kc-form" class="flex flex-col justify-center items-center h-full px-4 md:px-0">
-            <a href="${client.baseUrl}" class="cursor-pointer" tabindex="0" aria-label="Enrichment Logo">
-                <img
-                        src="${url.resourcesPath}/img/logo.svg"
-                        width="88"
-                        height="82"
-                        aria-hidden="true"
-                        draggable="false"
-                        class="h-[41px] w-[44px] mt-8">
-            </a>
-            <div id="kc-form-wrapper" class="w-full md:w-[500px] bg-base-light rounded-base mt-8">
-                <div class="p-16">
 
-                    <h1 class="text-center mt-0">Anmeldung</h1>
+        <#if actionUri?has_content>
+            <div class="kc-info-container w-full flex justify-center" style="opacity: 0">
+                <p><a href="${actionUri}">${kcSanitize(msg("proceedWithAction"))?no_esc}</a></p>
+            </div>
+            <script type="text/javascript">
+                window.location.href = "${actionUri}";
+            </script>
+        <#else>
+        <#-- The client bean is not available on every page, e.g. when there is no client context. -->
+            <#assign appBaseUrl = (client.baseUrl)!"">
+            <div id="kc-form" class="flex flex-col justify-center items-center h-full px-4 md:px-0">
+                <#if appBaseUrl?has_content>
+                <a href="${appBaseUrl}" class="cursor-pointer">
+                    </#if>
+                    <img
+                            src="${url.resourcesPath}/img/logo.svg"
+                            width="88"
+                            height="82"
+                            tabindex="1"
+                            alt="Enrichment - Zur Startseite"
+                            draggable="false"
+                            class="h-[41px] w-[44px] mt-8">
+                    <#if appBaseUrl?has_content>
+                </a>
+                </#if>
+                <div id="kc-form-wrapper" class="w-full md:w-[500px] bg-base-light rounded-base mt-8">
+                    <div class="p-16">
 
-                    <form id="kc-form-login" onsubmit="login.disabled = true; return true;"
-                          action="${url.loginAction}" method="post">
-                        <#if !usernameHidden??>
-                            <div class="${properties.kcFormGroupClass!}">
+                        <p class="text-center mt-0 font-bold">${message.summary}</p>
 
-                                <#if message?has_content && (message.type != 'warning' || !isAppInitiatedAction??)>
-                                    <div class="alert alert-${message.type}">
-                                        <#if message.type = 'success'>
-                                            <svg class="inline-block min-w-[20px]" height="20" width="20" fill="#ffffff">
-                                                <use href="${url.resourcesPath}/icons/check-circle.svg#check-circle"
-                                                     width="20" height="20"></use>
-                                            </svg>
-                                        </#if>
-                                        <#if message.type = 'error'>
-                                            <svg class="inline-block min-w-[20px]" height="20" width="20" fill="#ffffff">
-                                                <use href="${url.resourcesPath}/icons/alert-circle.svg#alert-circle"
-                                                     width="20" height="20"></use>
-                                            </svg>
-                                        </#if>
-                                        <div>
-                                            <div>${kcSanitize(message.summary)?no_esc}</div>
-                                        </div>
-                                    </div>
-                                </#if>
-
-                                <label class="form-control w-full max-w-xs relative">
-                                    <span class="label">
-                                        <span class="label-text">Nutzername eingeben</span>
-                                    </span>
-                                    <input tabindex="0" id="username" name="username" value="${(login.username!'')}"
-                                           type="text" autofocus autocomplete="username" placeholder="Nutzername"
-                                           class="input input-bordered input-sm <#if messagesPerField.existsError('username','password')>border-primary</#if>"
-                                           aria-invalid="<#if messagesPerField.existsError('username','password')>true</#if>"
-                                    />
-                                    <span class="absolute right-0 bottom-0.5">
-                                        <#if messagesPerField.existsError('username','password')>
-                                            <svg class="inline-block fill-primary mr-2" height="20" width="20" aria-hidden="true">
-                                                <use
-                                                        href="${url.resourcesPath}/icons/alert-circle-outline.svg#alert-circle-outline"
-                                                        width="20" height="20"></use>
-                                            </svg>
-                                        </#if>
-                                    </span>
-                                </label>
-
+                        <#if appBaseUrl?has_content>
+                            <div id="kc-form-buttons" class="mt-12">
+                                <a href="${appBaseUrl}/login" style="text-decoration: none">
+                                    <button class="btn btn-block">
+                                        Weiter zur Anwendung
+                                        <svg class="inline-block" height="20" width="20" fill="#ffffff">
+                                            <use href="${url.resourcesPath}/icons/arrow-forward.svg#arrow-forward"
+                                                 width="20" height="20"></use>
+                                        </svg>
+                                    </button>
+                                </a>
                             </div>
                         </#if>
-
-                        <div class="mt-4">
-
-                            <div class="${properties.kcInputGroup!}">
-                                <label class="form-control w-full max-w-xs relative">
-                                    <span class="label">
-                                        <span class="label-text">Passwort eingeben</span>
-                                    </span>
-                                    <input tabindex="0" id="password" placeholder="Passwort" name="password"
-                                           type="password" autocomplete="current-password"
-                                           class="input input-bordered input-sm <#if messagesPerField.existsError('username','password')>border-primary</#if>"
-                                           aria-invalid="<#if messagesPerField.existsError('username','password')>true</#if>"
-                                           aria-label="Passwort eingeben"
-                                    />
-                                    <span class="absolute right-0 bottom-0.5 select-none">
-                                        <button type="button"
-                                                class="cursor-pointer inline-flex items-center justify-center bg-white border-none p-0"
-                                                aria-label="${msg("showPassword")}"
-                                                aria-controls="password"
-                                                aria-pressed="false"
-                                                data-password-toggle
-                                                data-label-show="${msg("showPassword")}"
-                                                data-label-hide="${msg("hidePassword")}">
-                                            <svg class="inline-block mr-2" height="20" width="20" aria-hidden="true">
-                                                <use
-                                                        href="${url.resourcesPath}/icons/eye-off-outline.svg#eye-off-outline"
-                                                        width="20" height="20"></use>
-                                            </svg>
-                                        </button>
-                                        <#if messagesPerField.existsError('username','password')>
-                                            <svg class="inline-block fill-primary mr-2" height="20" width="20" tabindex="0">
-                                                <use
-                                                        href="${url.resourcesPath}/icons/alert-circle-outline.svg#alert-circle-outline"
-                                                        width="20" height="20"></use>
-                                            </svg>
-                                        </#if>
-                                    </span>
-                                </label>
-                                <div class="flex justify-end mt-1">
-                                    <a tabindex="0" href="${url.loginResetCredentialsUrl}" class="link link-sm inline-flex items-center gap-[4px] text-info">
-                                        <svg class="inline-block fill-current" height="14" width="14" aria-hidden="true" focusable="false">
-                                            <use href="${url.resourcesPath}/icons/arrow-forward.svg#arrow-forward" width="14" height="14"></use>
-                                        </svg>
-                                        Passwort vergessen?
-                                    </a>
-                                </div>
-                            </div>
-
-                            <#if usernameHidden?? && messagesPerField.existsError('username','password')>
-                                <span id="input-error" class="${properties.kcInputErrorMessageClass!}"
-                                      aria-live="polite">
-                                    ${kcSanitize(messagesPerField.getFirstError('username','password'))?no_esc}
-                                </span>
-                            </#if>
-
-                        </div>
-
-                        <div id="kc-form-buttons" class="mt-4">
-                            <input type="hidden" id="id-hidden-input" name="credentialId"
-                                   <#if auth.selectedCredential?has_content>value="${auth.selectedCredential}"</#if>/>
-                            <button aria-label="Anmelden" tabindex="0" name="login" id="kc-login" type="submit" class="btn btn-block">
-                                Anmelden
-                            </button>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
-            <div class="text-center mt-2">
-                <a href="${client.baseUrl}" tabindex="0" class="link cursor-pointer inline-flex items-center gap-[4px] text-info">
-                    <svg class="inline-block fill-current" height="16" width="16" aria-hidden="true" focusable="false">
-                        <use href="${url.resourcesPath}/icons/keyboard-backspace.svg#keyboard-backspace" width="16" height="16"></use>
-                    </svg>
-                    Zurück zur Startseite
-                </a>
-            </div>
-        </div>
-        <script type="module" src="${url.resourcesPath}/js/passwordVisibility.js"></script>
-    </#if>
+        </#if>
+        <style>
+            /*
+                The container is hidden by default because the user gets redirected directly to the action page.
+                In case the redirect fails, the container will be shown that the user can manually click on the link.
+             */
+            .kc-info-container {
+                opacity: 0;
+                animation: kc-info-message-animation 0.5s ease forwards;
+                animation-delay: 2s;
+            }
 
+            @keyframes kc-info-message-animation {
+                0% {
+                    opacity: 0;
+                }
+                100% {
+                    opacity: 1;
+                }
+            }
+        </style>
+    </#if>
 </@layout.registrationLayout>
