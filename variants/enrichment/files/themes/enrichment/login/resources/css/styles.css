@@ -277,6 +277,11 @@ body {
     font-size: 12px;
 }
 
+/* Re-apply .text-info after .link so links can still be colored blue via the text-info utility. */
+.text-info {
+    color: #003064;
+}
+
 .mt-0 {
     margin-top: 0;
 }
@@ -376,6 +381,7 @@ body {
 
 .input-sm {
     height: 28px;
+    font-size: 0.875rem;
 }
 
 .input:focus, .input:focus-within {
@@ -404,6 +410,19 @@ button, input, optgroup, select, textarea {
     }
 }
 
+/* Re-apply compact input size after the global input reset above. */
+input.input-sm,
+select.input-sm,
+textarea.input-sm {
+    font-size: 0.875rem;
+}
+
+/* Keep native date/time text at compact size in WebKit browsers. */
+input[type="date"].input-sm::-webkit-date-and-time-value,
+input[type="time"].input-sm::-webkit-date-and-time-value {
+    font-size: 0.875rem;
+}
+
 .form-control {
     display: flex;
     flex-direction: column;
@@ -426,6 +445,38 @@ button, input, optgroup, select, textarea {
 
 .inline-block {
     display: inline-block;
+}
+
+.inline-flex {
+    display: inline-flex;
+}
+
+.gap-\[4px\] {
+    gap: 4px;
+}
+
+.gap-\[2px\] {
+    gap: 2px;
+}
+
+.ml-\[6px\] {
+    margin-left: 6px;
+}
+
+.fill-current {
+    fill: currentColor;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
 }
 
 .btn {
@@ -514,6 +565,11 @@ button, input, optgroup, select, textarea {
 
 .min-w-\[20px\] {
     min-width: 20px;
+}
+
+[data-password-toggle] {
+    background-color: #ffffff;
+    border: none;
 }
 
 .z-50 {
