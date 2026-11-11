@@ -108,16 +108,30 @@ ingress:
 
 priorityClassName: ""
 
-containerSecurityContext:
-  runAsUser: 65532
+podSecurityContext:
+  # only on pod level
+  # fsGroup
+  # fsGroupChangePolicy
+  # supplementalGroups
+  # sysctls
+  # could be overriden by container
   runAsNonRoot: true
-  privileged: false
-  readOnlyRootFilesystem: true
+  runAsUser: 65532
+  runAsGroup: 65532
+  # seLinuxOptions
+  seccompProfile:
+    type: "RuntimeDefault"
+  # windowsOptions
+
+containerSecurityContext:
+  # can only be set on container level
   allowPrivilegeEscalation: false
   capabilities:
     drop: ["ALL"]
-  seccompProfile:
-    type: "RuntimeDefault"
+  privileged: false
+  # procMount: false
+  readOnlyRootFilesystem: true
+  # override pod settings
 
 resources:
   limits:
