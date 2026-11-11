@@ -16,33 +16,41 @@
                 window.location.href = "${actionUri}";
             </script>
         <#else>
+        <#-- The client bean is not available on every page, e.g. when there is no client context. -->
+            <#assign appBaseUrl = (client.baseUrl)!"">
             <div id="kc-form" class="flex flex-col justify-center items-center h-full px-4 md:px-0">
-                <a href="${client.baseUrl}" class="cursor-pointer">
+                <#if appBaseUrl?has_content>
+                <a href="${appBaseUrl}" class="cursor-pointer">
+                    </#if>
                     <img
-                        src="${url.resourcesPath}/img/logo.svg"
-                        width="88"
-                        height="82"
-                        tabindex="1"
-                        alt="Enrichment - Zur Startseite"
-                        draggable="false"
-                        class="h-[41px] w-[44px] mt-8">
+                            src="${url.resourcesPath}/img/logo.svg"
+                            width="88"
+                            height="82"
+                            tabindex="1"
+                            alt="Enrichment - Zur Startseite"
+                            draggable="false"
+                            class="h-[41px] w-[44px] mt-8">
+                    <#if appBaseUrl?has_content>
                 </a>
+                </#if>
                 <div id="kc-form-wrapper" class="w-full md:w-[500px] bg-base-light rounded-base mt-8">
                     <div class="p-16">
 
                         <p class="text-center mt-0 font-bold">${message.summary}</p>
 
-                        <div id="kc-form-buttons" class="mt-12">
-                            <a href="${client.baseUrl}/login" style="text-decoration: none">
-                                <button class="btn btn-block">
-                                    Weiter zur Anwendung
-                                    <svg class="inline-block" height="20" width="20" fill="#ffffff">
-                                        <use href="${url.resourcesPath}/icons/arrow-forward.svg#arrow-forward"
-                                             width="20" height="20"></use>
-                                    </svg>
-                                </button>
-                            </a>
-                        </div>
+                        <#if appBaseUrl?has_content>
+                            <div id="kc-form-buttons" class="mt-12">
+                                <a href="${appBaseUrl}/login" style="text-decoration: none">
+                                    <button class="btn btn-block">
+                                        Weiter zur Anwendung
+                                        <svg class="inline-block" height="20" width="20" fill="#ffffff">
+                                            <use href="${url.resourcesPath}/icons/arrow-forward.svg#arrow-forward"
+                                                 width="20" height="20"></use>
+                                        </svg>
+                                    </button>
+                                </a>
+                            </div>
+                        </#if>
                     </div>
                 </div>
             </div>

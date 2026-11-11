@@ -1,4 +1,6 @@
 <#macro registrationLayout bodyClass="" displayInfo=false displayMessage=true displayRequiredFields=false>
+<#-- The client bean is not available on every page (e.g. error.ftl without client context). -->
+    <#assign appBaseUrl = (client.baseUrl)!"">
     <!DOCTYPE html>
     <html
             class="${properties.kcHtmlClass!}"<#if realm.internationalizationEnabled> lang="${locale.currentLanguageTag}"</#if>>
@@ -51,7 +53,7 @@
                 "${url.ssoLoginInOtherTabsUrl?no_esc}"
             );
         </script>
-        <#if authenticationSession??>
+        <#if (authenticationSession.authSessionIdHash)?has_content>
             <script type="module">
                 import {checkAuthSession} from "${url.resourcesPath}/js/authChecker.js";
 
@@ -109,37 +111,41 @@
                     <div
                             class="max-w-footer w-full grid grid-cols-2 ps-2.5 md:px-[93px] footer:px-0 gap-[38px] md:gap-0">
                         <div class="col-span-2 md:col-span-1 flex flex-col justify-end gap-y-[10px] mt-4 md:mt-0">
+                            <#if appBaseUrl?has_content>
+                                <div class="flex flex-wrap gap-x-[28px] gap-y-[10px] select-none">
+                                    <a href="${appBaseUrl}/faq" class="cursor-pointer footer-item p-[1px] inline-flex items-center gap-[4px] text-info">
+                                        <svg class="inline-block fill-current" height="16" width="16" aria-hidden="true" focusable="false">
+                                            <use href="${url.resourcesPath}/icons/arrow-forward.svg#arrow-forward" width="16" height="16"></use>
+                                        </svg>
+                                        FAQ
+                                    </a>
+                                    <a href="${appBaseUrl}/contact" class="cursor-pointer footer-item p-[1px] inline-flex items-center gap-[4px] text-info">
+                                        <svg class="inline-block fill-current" height="16" width="16" aria-hidden="true" focusable="false">
+                                            <use href="${url.resourcesPath}/icons/arrow-forward.svg#arrow-forward" width="16" height="16"></use>
+                                        </svg>
+                                        Kontakt
+                                    </a>
+                                    <a href="${appBaseUrl}/legal/privacy" target="_blank"
+                                       aria-describedby="footer-external-link-hint"
+                                       class="cursor-pointer footer-item p-[1px] inline-flex items-center gap-[4px] text-info">
+                                        <svg class="inline-block fill-current" height="16" width="16" aria-hidden="true" focusable="false">
+                                            <use href="${url.resourcesPath}/icons/arrow-forward.svg#arrow-forward" width="16" height="16"></use>
+                                        </svg>
+                                        Datenschutz
+                                    </a>
+                                </div>
+                            </#if>
                             <div class="flex flex-wrap gap-x-[28px] gap-y-[10px] select-none">
-                                <a href="${client.baseUrl}/faq" class="cursor-pointer footer-item p-[1px] inline-flex items-center gap-[4px] text-info">
-                                    <svg class="inline-block fill-current" height="16" width="16" aria-hidden="true" focusable="false">
-                                        <use href="${url.resourcesPath}/icons/arrow-forward.svg#arrow-forward" width="16" height="16"></use>
-                                    </svg>
-                                    FAQ
-                                </a>
-                                <a href="${client.baseUrl}/contact" class="cursor-pointer footer-item p-[1px] inline-flex items-center gap-[4px] text-info">
-                                    <svg class="inline-block fill-current" height="16" width="16" aria-hidden="true" focusable="false">
-                                        <use href="${url.resourcesPath}/icons/arrow-forward.svg#arrow-forward" width="16" height="16"></use>
-                                    </svg>
-                                    Kontakt
-                                </a>
-                                <a href="${client.baseUrl}/legal/privacy" target="_blank"
-                                   aria-describedby="footer-external-link-hint"
-                                   class="cursor-pointer footer-item p-[1px] inline-flex items-center gap-[4px] text-info">
-                                    <svg class="inline-block fill-current" height="16" width="16" aria-hidden="true" focusable="false">
-                                        <use href="${url.resourcesPath}/icons/arrow-forward.svg#arrow-forward" width="16" height="16"></use>
-                                    </svg>
-                                    Datenschutz
-                                </a>
-                            </div>
-                            <div class="flex flex-wrap gap-x-[28px] gap-y-[10px] select-none">
-                                <a href="${client.baseUrl}/legal/imprint" target="_blank"
-                                   aria-describedby="footer-external-link-hint"
-                                   class="cursor-pointer footer-item p-[1px] inline-flex items-center gap-[4px] text-info">
-                                    <svg class="inline-block fill-current" height="16" width="16" aria-hidden="true" focusable="false">
-                                        <use href="${url.resourcesPath}/icons/arrow-forward.svg#arrow-forward" width="16" height="16"></use>
-                                    </svg>
-                                    Impressum
-                                </a>
+                                <#if appBaseUrl?has_content>
+                                    <a href="${appBaseUrl}/legal/imprint" target="_blank"
+                                       aria-describedby="footer-external-link-hint"
+                                       class="cursor-pointer footer-item p-[1px] inline-flex items-center gap-[4px] text-info">
+                                        <svg class="inline-block fill-current" height="16" width="16" aria-hidden="true" focusable="false">
+                                            <use href="${url.resourcesPath}/icons/arrow-forward.svg#arrow-forward" width="16" height="16"></use>
+                                        </svg>
+                                        Impressum
+                                    </a>
+                                </#if>
                                 <div class="cursor-pointer footer-item p-[1px] inline-flex items-center gap-[4px] text-info">
                                     <svg class="inline-block fill-current" height="16" width="16" aria-hidden="true" focusable="false">
                                         <use href="${url.resourcesPath}/icons/arrow-forward.svg#arrow-forward" width="16" height="16"></use>
