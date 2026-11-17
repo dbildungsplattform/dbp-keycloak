@@ -27,9 +27,9 @@ jobs:
         run: |
           echo "sha=$BRANCH_SHA" | tee -a $GITHUB_OUTPUT
           if [ "${{ github.event_name }}" == 'pull_request' ]; then
-            echo "branch=$PR_HEAD_REF" | tee -a $GITHUB_OUTPUT
+            echo "branch=${PR_HEAD_REF//\//-}" | tee -a $GITHUB_OUTPUT
           else
-            echo "branch=$BRANCH_REF_NAME" | tee -a $GITHUB_OUTPUT
+            echo "branch=${BRANCH_REF_NAME//\//-}" | tee -a $GITHUB_OUTPUT
           fi
 
   build_and_upload_image:
