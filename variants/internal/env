@@ -1,3 +1,4 @@
 # extends/overrides env file from base
+# renovate: datasource=github-releases depName=keycloak/keycloak
 KEYCLOAK_VERSION=26.8.1
 KC_EVENT_METRICS_USER_ENABLED=true
